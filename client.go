@@ -14,8 +14,8 @@ const (
 
 // Credentials are used to authenticate a hexon client
 type Credentials struct {
-	username string
-	password string
+	Username string
+	Password string
 }
 
 // Validate can be called to ensure the instance of the hexon credentials is valid.
@@ -23,10 +23,10 @@ type Credentials struct {
 func (hc *Credentials) Validate() error {
 	errs := make([]error, 0, 3)
 
-	if hc.username == "" {
+	if hc.Username == "" {
 		errs = append(errs, ErrorEmptyUserName)
 	}
-	if hc.password == "" {
+	if hc.Password == "" {
 		errs = append(errs, ErrorEmptyPassword)
 	}
 
@@ -109,7 +109,7 @@ func (c *Client) req(method, path string, payload interface{}) (*http.Request, e
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept-Language", "en_GB")
 	req.Header.Set("Accept", "application/json")
-	req.SetBasicAuth(c.username, c.password)
+	req.SetBasicAuth(c.Username, c.Password)
 	return req, nil
 }
 
