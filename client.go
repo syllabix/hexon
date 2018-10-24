@@ -56,8 +56,9 @@ type APIResponse struct {
 // Client is the struct used to interface with the Hexon Api. It is intended to be intialized using the
 // NewClient factory constructor
 type Client struct {
-	Credentials
-	http http.Client
+	username string
+	password string
+	http     http.Client
 }
 
 // CreateVehicle takes a vehicle and creates it in hexon,
@@ -109,7 +110,7 @@ func (c *Client) req(method, path string, payload interface{}) (*http.Request, e
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept-Language", "en_GB")
 	req.Header.Set("Accept", "application/json")
-	req.SetBasicAuth(c.Username, c.Password)
+	req.SetBasicAuth(c.username, c.password)
 	return req, nil
 }
 
@@ -131,11 +132,16 @@ func (c *Client) send(req *http.Request) (*APIResponse, error) {
 }
 
 // NewClient a factory constructor for initializing a hexon client
-func NewClient(credentials Credentials) *Client {
+func NewClient(credentials Credentials) (*Client, error) {
+	err := credentials.Validate()
+	if err != nil {
+		return nil, err
+	}
 	return &Client{
-		Credentials: credentials,
+		username: credentials.Username,
+		password: credentials.Password,
 		http: http.Client{
 			Timeout: time.Second * 5,
 		},
-	}
+	}, nil
 }
