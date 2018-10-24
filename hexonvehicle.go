@@ -49,6 +49,14 @@ type history struct {
 	ArrivalDate string `json:"arrival_date"`
 }
 
+type color struct {
+	Primary string `json:"primary"`
+}
+
+type body struct {
+	Color color `json:"colour"`
+}
+
 type hexonvehicle struct {
 	StockNumber    string         `json:"stocknumber"`
 	Identification identification `json:"identification"`
@@ -56,6 +64,7 @@ type hexonvehicle struct {
 	SalesCondition salescondition `json:"sales_conditions"`
 	Condition      condition      `json:"condition"`
 	History        history        `json:"history"`
+	Body           body           `json:"body"`
 }
 
 func payloadify(vehicle Vehicle) hexonvehicle {
@@ -84,6 +93,11 @@ func payloadify(vehicle Vehicle) hexonvehicle {
 			Odometer: odometer{
 				Reading: vehicle.ExpectedMileage,
 				Unit:    vehicle.MileageUnit,
+			},
+		},
+		Body: body{
+			Color: color{
+				Primary: vehicle.ExteriorColor,
 			},
 		},
 		History: history{

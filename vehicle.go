@@ -20,5 +20,4 @@ type Vehicle struct {
 	ExteriorColor         string
 	FuelType              string
 	IsVatDeductible       bool
-	IsStagedForImport     bool
 }
