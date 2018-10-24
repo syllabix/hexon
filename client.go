@@ -119,10 +119,10 @@ func (c *Client) send(req *http.Request) (*APIResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	var apiRes APIResponse
-	err = json.NewDecoder(res.Body).Decode(&apiRes)
-	if err != nil {
-		return nil, err
+	apiRes := APIResponse{}
+	decodeErr := json.NewDecoder(res.Body).Decode(&apiRes)
+	if decodeErr != nil {
+		apiRes.Result = append([]string{}, "Operation completed successfully")
 	}
 	if res.StatusCode < 200 || res.StatusCode > 299 {
 		err = ErrorHexonAPI
