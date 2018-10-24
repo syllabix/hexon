@@ -76,8 +76,10 @@ func payloadify(vehicle Vehicle) hexonvehicle {
 			Location:     vehicle.LocationCode,
 		},
 		GeneralInfo: carinfo{
-			Make:  attributename{Name: vehicle.Make},
-			Model: attributename{Name: vehicle.Model},
+			Make:      attributename{Name: vehicle.Make},
+			Model:     attributename{Name: vehicle.Model},
+			BodyStyle: vehicle.BodyStyle,
+			Category:  vehicle.HexonCategory,
 		},
 		SalesCondition: salescondition{
 			Pricing: price{
