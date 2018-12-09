@@ -77,7 +77,7 @@ type hexonvehicle struct {
 	Condition      condition      `json:"condition"`
 	History        history        `json:"history"`
 	Body           body           `json:"body"`
-	PowerTrain     powertrain     `json:"power_train"`
+	PowerTrain     powertrain     `json:"powertrain"`
 }
 
 func payloadify(vehicle Vehicle) hexonvehicle {
