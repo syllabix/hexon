@@ -4,9 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
-	"net/http/httputil"
 	"time"
 )
 
@@ -70,12 +68,6 @@ func (c *Client) CreateVehicle(vehicle Vehicle) (*APIResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Println(req)
-	b, err := httputil.DumpRequest(req, true)
-	n := bytes.IndexByte(b, 0)
-	log.Println(n)
-	log.Println("correct print")
-	fmt.Printf("%08b", b)
 	return c.send(req)
 }
 
@@ -91,13 +83,6 @@ func (c *Client) PublishVehicle(vin, sitecode string) (*APIResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Println(msg)
-	log.Println(req)
-	b, err := httputil.DumpRequest(req, true)
-	n := bytes.IndexByte(b, 0)
-	log.Println(n)
-	log.Println("correct print")
-	fmt.Printf("%08b", b)
 	return c.send(req)
 }
 
