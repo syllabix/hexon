@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 )
@@ -68,6 +69,7 @@ func (c *Client) CreateVehicle(vehicle Vehicle) (*APIResponse, error) {
 	if err != nil {
 		return nil, err
 	}
+	log.Println(req)
 	return c.send(req)
 }
 
@@ -83,6 +85,8 @@ func (c *Client) PublishVehicle(vin, sitecode string) (*APIResponse, error) {
 	if err != nil {
 		return nil, err
 	}
+	log.Println(msg)
+	log.Println(req)
 	return c.send(req)
 }
 
