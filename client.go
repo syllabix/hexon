@@ -63,16 +63,6 @@ type Client struct {
 	http     http.Client
 }
 
-// Dump request for printing and testing
-func DumpRequest(w http.ResponseWriter, req *http.Request) {
-	requestDump, err := httputil.DumpRequest(req, true)
-	if err != nil {
-		fmt.Fprint(w, err.Error())
-	} else {
-		fmt.Fprint(w, string(requestDump))
-	}
-}
-
 // CreateVehicle takes a vehicle and creates it in hexon,
 // returning the api response and an error if one occurred.
 func (c *Client) CreateVehicle(vehicle Vehicle) (*APIResponse, error) {
@@ -84,6 +74,8 @@ func (c *Client) CreateVehicle(vehicle Vehicle) (*APIResponse, error) {
 	b, err := httputil.DumpRequest(req, true)
 	n := bytes.IndexByte(b, 0)
 	log.Println(n)
+	log.Println("correct print")
+	fmt.Printf("%08b", b)
 	return c.send(req)
 }
 
@@ -104,6 +96,8 @@ func (c *Client) PublishVehicle(vin, sitecode string) (*APIResponse, error) {
 	b, err := httputil.DumpRequest(req, true)
 	n := bytes.IndexByte(b, 0)
 	log.Println(n)
+	log.Println("correct print")
+	fmt.Printf("%08b", b)
 	return c.send(req)
 }
 
