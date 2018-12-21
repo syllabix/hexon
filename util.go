@@ -1,10 +1,10 @@
 package hexon
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"regexp"
-	"strings"
 )
 
 //Common Errors
@@ -25,7 +25,7 @@ func isValidVin(vin string) bool {
 }
 
 func concatErrors(msg string, errs ...error) error {
-	buidler := strings.Builder{}
+	buidler := bytes.Buffer{}
 	buidler.WriteString(fmt.Sprintf("%s:\n", msg))
 	for i, err := range errs {
 		buidler.WriteString(fmt.Sprintf("%d. %s\n", i, err))
