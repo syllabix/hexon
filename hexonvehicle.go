@@ -29,6 +29,7 @@ type pricedetails struct {
 type price struct {
 	Currency string       `json:"currency"`
 	Consumer pricedetails `json:"consumer"`
+	Trade    pricedetails `json:"trade"`
 }
 
 type salescondition struct {
@@ -99,6 +100,10 @@ func payloadify(vehicle Vehicle) hexonvehicle {
 				Currency: vehicle.Currency,
 				Consumer: pricedetails{
 					Value:       vehicle.PriceIncludingVat,
+					IncludesVAT: true,
+				},
+				Trade: pricedetails{
+					Value:       vehicle.TradePriceIncludingVat,
 					IncludesVAT: true,
 				},
 			},
