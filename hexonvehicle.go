@@ -29,6 +29,7 @@ type pricedetails struct {
 type price struct {
 	Currency string       `json:"currency"`
 	Consumer pricedetails `json:"consumer"`
+	Trade    pricedetails `json:"trade"`
 }
 
 type salescondition struct {
@@ -57,6 +58,18 @@ type body struct {
 	Color color `json:"colour"`
 }
 
+type powertrain struct {
+	Engine engine `json:"engine"`
+}
+
+type engine struct {
+	Energy energy `json:"energy"`
+}
+
+type energy struct {
+	Type string `json:"type"`
+}
+
 type hexonvehicle struct {
 	StockNumber    string         `json:"stocknumber"`
 	Identification identification `json:"identification"`
@@ -65,6 +78,7 @@ type hexonvehicle struct {
 	Condition      condition      `json:"condition"`
 	History        history        `json:"history"`
 	Body           body           `json:"body"`
+	PowerTrain     powertrain     `json:"powertrain"`
 }
 
 func payloadify(vehicle Vehicle) hexonvehicle {
@@ -88,6 +102,10 @@ func payloadify(vehicle Vehicle) hexonvehicle {
 					Value:       vehicle.PriceIncludingVat,
 					IncludesVAT: true,
 				},
+				Trade: pricedetails{
+					Value:       vehicle.TradePriceIncludingVat,
+					IncludesVAT: true,
+				},
 			},
 		},
 		Condition: condition{
@@ -104,6 +122,13 @@ func payloadify(vehicle Vehicle) hexonvehicle {
 		},
 		History: history{
 			ArrivalDate: vehicle.ExpectedDateAvailable.Format("2006-01-02"),
+		},
+		PowerTrain: powertrain{
+			Engine: engine{
+				Energy: energy{
+					Type: vehicle.FuelType,
+				},
+			},
 		},
 	}
 }
